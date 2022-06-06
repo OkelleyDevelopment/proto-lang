@@ -26,19 +26,15 @@ pub struct Token<T> {
 }
 
 impl<T: Debug> Token<T> {
-    fn new(token_type: Types, value: T) -> Self {
+    pub fn new(token_type: Types, value: T) -> Self {
         Self {
             token_type,
             value
         }
     }
-    fn println_t(self) {
-        println!("{:?}", self.value);
-    }
 
     fn display(self) {
-        println!("Token --> {}", self.token_type);
-        self.println_t()
+        println!("Token --> {}, {:?}", self.token_type, self.value);
     }
 
     fn is_equal(&self, target: Types) -> bool {
