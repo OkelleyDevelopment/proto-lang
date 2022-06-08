@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Types {
     Integer, 
     Plus,
@@ -19,13 +19,13 @@ impl fmt::Display for Types  {
    }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Token<T> {
     token_type: Types,
     value: T
 }
 
-impl<T: Debug> Token<T> {
+impl<T: Clone + Debug> Token<T> {
     pub fn new(token_type: Types, value: T) -> Self {
         Self {
             token_type,
@@ -33,11 +33,20 @@ impl<T: Debug> Token<T> {
         }
     }
 
-    fn display(self) {
+    pub fn get_token_type(&self) -> Types {
+       self.token_type 
+    }
+
+    pub fn _get_value(&self) -> T {
+       let v: T = self.value.clone();
+       return v;
+    }
+
+    pub fn display(&self) {
         println!("Token --> {}, {:?}", self.token_type, self.value);
     }
 
-    fn is_equal(&self, target: Types) -> bool {
+    pub fn is_equal(&self, target: Types) -> bool {
         match (&self.token_type, target) {
             (Types::Plus, Types::Plus) => true,
             (Types::EOF, Types::EOF) => true,
@@ -46,7 +55,6 @@ impl<T: Debug> Token<T> {
         }
     }
 }
-
 
 #[test]
 fn test_equal() {

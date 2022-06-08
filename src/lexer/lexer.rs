@@ -68,10 +68,10 @@ impl Lexer {
         
     }
 
-    pub fn _next_token(&mut self) -> Result<Token<String>, SErr> {
+    pub fn next_token(&mut self) -> Result<Token<String>, SErr> {
 
         match self.curr_char {
-            '+' => Ok(Token::new(Types::Plus, '+'.to_string())),
+            '+' => Ok(Token::new(Types::Plus, String::from('+'))),
             _ => {
                Err(SErr::Reason("Token not supported".to_string()))
             }
